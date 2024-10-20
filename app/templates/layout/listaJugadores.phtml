@@ -1,0 +1,8 @@
+<ul class='list-group'>
+    <?php foreach ($jugadores as $jugador): ?>
+        <li class='list-group-item'>
+            <?php echo "Nombre: $jugador->Nombre"; ?>
+            <a href='vermas/<?php echo $jugador->ID_Jugador; ?>' type='button'>Ver más</a>
+            <a href='eliminarJugador/<?php echo $jugador->ID_Jugador; ?>' type='button'>Borrar</a>
+        </li>
+    <?php endforeach ?>

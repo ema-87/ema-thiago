@@ -1,0 +1,55 @@
+
+    <?php if (isset($_SESSION['ID_USER'])){ ?>
+    <form action="agregarJugador" method="POST">
+        <input name="nombre" type="text" placeholder="Nombre" require>
+        <input name="posicion" type="text" placeholder="Posicion" require>
+        <input name="nacimiento" type="date" placeholder="Fecha" require>
+        <?php
+        require_once 'app/controllers/clubes.controller.php';
+        $clubesController = new clubController();
+        $clubes = $clubesController->getAll();
+        $jugadoresController = new jugadorController();
+        $jugadores = $jugadoresController->getAll();
+        ?>
+
+        <select name="nacionalidad" id="">
+            <option hidden>Nacionalidad</option>
+            <?php
+            $nacionalidadesMostradas = [];
+            foreach ($jugadores as $jugador){
+                // Verifica si la nacionalidad ya se sido mostrada
+                if (!in_array($jugador->Nacionalidad, $nacionalidadesMostradas)){
+                    // Si no está en el array, la agrega y muestra la opción
+                    $nacionalidadesMostradas[] = $jugador->Nacionalidad; 
+            ?>
+                    <option value="<?php echo $jugador->Nacionalidad; ?>"><?php echo $jugador->Nacionalidad; ?></option>
+            <?php
+                }
+            }
+            ?>
+        </select>
+
+
+        <select name="club" id="">
+            <option hidden>Club</option>
+            <?php
+            $ClubesMostrados = [];
+            foreach ($clubes as $club){
+              
+                if (!in_array($club->Club, $ClubesMostrados)){
+                    $ClubesMostrados[] = $club->Club; 
+            ?>
+                    <option value="<?php echo $club->Club; ?>"><?php echo $club->Club; ?></option>
+            <?php
+                }
+            }
+            ?>
+        </select>
+        <button type="submit">Agregar</button>
+    </form>
+    <?php
+    }
+    else{ ?>
+    <p>No tienes permiso para agregar jugadores.</p>
+<?php }
+    

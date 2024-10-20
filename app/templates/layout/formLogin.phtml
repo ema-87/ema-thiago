@@ -1,0 +1,20 @@
+<?php
+require 'app/templates/layout/header.phtml';
+?>
+
+<form method="POST" action="login">
+   <input type="email" id="email" name="email" placeholder="email" required>
+   <input type="password" id="password" name="password" placeholder="contraseña" required>
+   <?php
+   if($error != '') {
+      echo $error;
+   }
+   ?> 
+   <button type="submit">Iniciar Sesión</button>
+</form>
+
+
+
+<?php
+require 'app/templates/layout/footer.phtml';
+?>
