@@ -1,6 +1,6 @@
 <?php
 
-    // acceso a los datos
+
 
     class jugadorModel{
 
@@ -79,7 +79,6 @@
                 (40, 'Libre', 'Arquero', '2024-10-01', 5, '');
                 END;
 
-                // Ejecutamos la inserción de datos iniciales
                 $this->db->exec($sqlInsert);
             }
         }
@@ -103,12 +102,8 @@
                              JOIN clubes ON jugadores.id_club = clubes.id
                              WHERE jugadores.ID_Jugador = ?');
 
-            /*$query = $this->db->prepare('SELECT jugadores.Nombre, jugadores.Posicion, jugadores.Nacimiento, jugadores.Nacionalidad, clubes.Club AS club_nombre, clubes.Liga
-                                          FROM jugadores
-                                          JOIN clubes ON jugadores.id_club = clubes.id
-                                          WHERE jugadores.ID_Jugador = ?');*/
             $query->execute([$id]);
-            return $query->fetch(PDO::FETCH_OBJ); // Solo traes un jugador
+            return $query->fetch(PDO::FETCH_OBJ);
         }
         
 

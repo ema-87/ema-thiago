@@ -3,7 +3,7 @@ require 'app/templates/layout/header.phtml';
 ?>
 
 <form method="POST" action="login">
-   <input type="email" id="email" name="email" placeholder="email" required>
+   <input type="text" id="nombreUsuario" name="usuario" placeholder="nombre" required>
    <input type="password" id="password" name="password" placeholder="contraseña" required>
    <?php
    if($error != '') {

@@ -4,6 +4,7 @@
         <li class='list-group-item'> 
             <?php echo "Liga: $club->Liga - "; 
                   echo "Club: $club->Club"; ?>
+                  <a href="<?php echo BASE_URL . 'eliminarClub/' . $club->id; ?>">Borrar</a>
         </li>
     <?php endforeach ?>
 </ul>

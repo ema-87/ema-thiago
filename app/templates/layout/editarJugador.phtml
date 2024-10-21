@@ -1,13 +1,13 @@
 <?php if (isset($dataJugadores)): ?>
         <h1>Edita el jugador</h1>
+        
         <form action="<?php echo BASE_URL; ?>editarJugador/<?php echo $dataJugadores->ID_Jugador; ?>" method="POST">
-    
-
             <input type="text" name="editClub" placeholder="club">
             <input type="text" name="editPosicion" placeholder="posicion">
             <input type="text" name="editLiga" placeholder="liga">
             <button type="submit">EDITAR</button>
         </form>
+
 <?php else: ?>
     <p>Error: No se ha encontrado el jugador.</p>
 <?php endif; ?>

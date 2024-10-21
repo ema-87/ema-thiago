@@ -1,81 +1,78 @@
 <?php
 include_once 'app/models/clubes.model.php';
 
-class clubController{
+class clubController
+{
 
     private $modelClubes;
     private $modelJugadores;
     private $viewClubes;
 
-    function __construct(){
+    function __construct()
+    {
 
         // instancio las clases en model y view para utilizar sus metodos dentro de la clase
         $this->modelClubes = new clubModel();
         $this->modelJugadores = new jugadorModel();
         $this->viewClubes = new clubView();
-
     }
-    function showClubes(){
-            // obtiene las tareas del modelo
-            $clubes = $this->modelClubes->getAll();
+    function showClubes()
+    {
+        $clubes = $this->modelClubes->getAll();
+        $this->viewClubes->showClubes($clubes);
+    }
 
-            // actualizo la vista
-            $this->viewClubes->showClubes($clubes);         
-            }
 
-            
 
-    function getAll() {
+    function getAll()
+    {
         $clubes = $this->modelClubes->getAll();
         return $clubes;
     }
-    function addClub(){
-        if(!empty($_POST['liga']) && !empty($_POST['club'])){
+    function addClub()
+    {
+        if (!empty($_POST['liga']) && !empty($_POST['club'])) {
             $liga = $_POST['liga'];
             $club = $_POST['club'];
-        }else{
+        } else {
             $this->viewClubes->showError();
             die();
         }
-        
-      $id=$this->modelClubes->insert($liga,$club);
-    
-        if($id){
-            // Redirigo al usuario a la pantalla principal
-            header('Location: ' . 'clubes');
-        }else{
+
+        $id = $this->modelClubes->insert($liga, $club);
+
+        if ($id) {
+            header('Location: ' . BASE_URL . 'clubes');
+        } else {
             echo "No se pudo agregar el parcial!";
         }
     }
 
-    function removeClub($id){
+    function removeClub($id)
+    {
         $jugadoresByClub = $this->modelJugadores->getJugadoresByClub($id);
 
-        if(count($jugadoresByClub) > 0) {
+        if (count($jugadoresByClub) > 0) {
             echo 'No se puede eliminar el club porque tiene jugadores asociados';
         } else {
             $this->modelClubes->remove($id);
-            header('Location: ' . 'clubes');
+            header('Location: ' . BASE_URL . 'clubes');
         }
     }
 
-    function editarClub($id) {
+    function editarClub($id)
+    {
         if (!empty($_POST['editLiga']) && !empty($_POST['editClub'])) {
             $clubEditado = $_POST['editLiga'];
             $ligaEditada = $_POST['editClub'];
-         
-    
-            $this->modelClubes->editClub($ligaEditada,$clubEditado, $id);
-    
-            // Redirigir a la vista del jugador editado
+
+
+            $this->modelClubes->editClub($ligaEditada, $clubEditado, $id);
+
             header('Location: ' . BASE_URL . 'clubes');
             exit;
         } else {
-            $this->viewClubes->showError(); // Mostrar un error si los campos están vacíos
+            $this->viewClubes->showError();
         }
     }
-
-
 }
-
-?>
